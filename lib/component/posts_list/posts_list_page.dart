@@ -16,7 +16,7 @@ class PostsListPage extends StatelessWidget {
         child: BlocConsumer<PostsListBloc, PostsListBlocState>(
           builder: (blocContext, blocState) {
             if (blocState.isLoading) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             }
             return ListView.separated(
               itemCount: blocState.posts.length,
@@ -24,7 +24,7 @@ class PostsListPage extends StatelessWidget {
                 return _createTile(context, blocState.posts[position]);
               },
               separatorBuilder: (context, position) {
-                return Divider(
+                return const Divider(
                   height: 1,
                   color: Colors.blueGrey,
                 );
@@ -41,7 +41,7 @@ class PostsListPage extends StatelessWidget {
     ));
   }
 
-  _createTile(BuildContext context, Post post) => ListTile(
+  Widget _createTile(BuildContext context, Post post) => ListTile(
         onTap: () {
           Navigator.pushNamed(
             context,
@@ -50,24 +50,24 @@ class PostsListPage extends StatelessWidget {
         },
         title: Text(
           post.title,
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.w600),
         ),
         subtitle: Text(
           post.body,
-          style: TextStyle(color: Colors.black, fontSize: 12.0),
+          style: const TextStyle(color: Colors.black, fontSize: 12.0),
         ),
       );
 
-  _showError(BuildContext context, String error) {
-    showDialog(
+  void _showError(BuildContext context, String error) {
+    showDialog<AlertDialog>(
         context: context,
-        builder: (_) => new AlertDialog(
-              title: new Text("Error"),
-              content: new Text(error),
+        builder: (_) => AlertDialog(
+              title: const Text('Error'),
+              content: Text(error),
               actions: <Widget>[
                 ElevatedButton(
-                  child: Text('Ok'),
+                  child: const Text('Ok'),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

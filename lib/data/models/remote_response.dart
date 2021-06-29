@@ -1,14 +1,13 @@
 enum ResponseType { Success, Error }
 
 abstract class RemoteResponse<T> {
-  final ResponseType type;
-
   RemoteResponse._(this.type);
 
   factory RemoteResponse.success(T data) = RemoteResponseSuccess;
 
   factory RemoteResponse.error(int code, String message) = RemoteResponseError;
 
+  final ResponseType type;
 }
 
 class RemoteResponseError<T> extends RemoteResponse<T> {

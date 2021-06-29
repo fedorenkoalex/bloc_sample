@@ -8,7 +8,7 @@ class CommentsMapper extends BaseMapper<Comment, PostCommentResponse> {
   Comment responseToUi(PostCommentResponse response) => Comment(
       response.userId ?? -1,
       response.id ?? -1,
-      response.name ?? "",
-      response.email ?? "",
-      response.body ?? "");
+      response.name ?? '',
+      response.email ?? '',
+      response.body ?? '');
 }

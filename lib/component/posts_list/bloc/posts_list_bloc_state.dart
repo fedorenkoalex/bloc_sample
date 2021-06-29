@@ -1,11 +1,11 @@
 import 'package:test_bloc/data/models/local/post.dart';
 
 class PostsListBlocState {
+  PostsListBlocState(this.posts, this.isLoading, this.error);
+
   final List<Post> posts;
   final bool isLoading;
   final String? error;
-
-  PostsListBlocState(this.posts, this.isLoading, this.error);
 
   PostsListBlocState copyWith(
       {List<Post>? posts, bool? isLoading, String? error}) {

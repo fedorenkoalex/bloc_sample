@@ -1,4 +1,3 @@
-
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:test_bloc/data/models/local/post.dart';
@@ -6,19 +5,22 @@ import 'package:test_bloc/data/models/local/post.dart';
 class AppDatabase {
   final String _databaseName = 'test_app.db';
 
-  final String _tableName = "posts";
+  final String _tableName = 'posts';
 
-  final String _idField = "id";
-  final String _titleField = "title";
-  final String _bodyField = "body";
+  final String _idField = 'id';
+  final String _titleField = 'title';
+  final String _bodyField = 'body';
 
   Future<Database> getDatabase() async {
-    String path = await getDatabasesPath();
+    var path = await getDatabasesPath();
     return openDatabase(
       join(path, _databaseName),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE $_tableName($_idField INTEGER PRIMARY KEY AUTOINCREMENT, $_titleField TEXT NOT NULL,$_bodyField TEXT NOT NULL)",
+          'CREATE TABLE $_tableName('
+          '$_idField INTEGER PRIMARY KEY AUTOINCREMENT, '
+          '$_titleField TEXT NOT NULL,'
+          '$_bodyField TEXT NOT NULL)',
         );
       },
       version: 1,
@@ -27,13 +29,13 @@ class AppDatabase {
 
   Future<void> savePosts(List<Post> posts) async {
     final db = await getDatabase();
-    posts.forEach((post) async {
+    for (var post in posts) {
       await db.insert(
         _tableName,
         post.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
-    });
+    }
   }
 
   Future<List<Post>> getPosts() async {
@@ -42,9 +44,9 @@ class AppDatabase {
     return List.generate(
         maps.length,
         (index) => Post(
-              maps[index][_idField],
-              maps[index][_titleField],
-              maps[index][_bodyField],
+              maps[index][_idField] as int,
+              maps[index][_titleField] as String,
+              maps[index][_bodyField] as String,
             ));
   }
 
@@ -57,12 +59,12 @@ class AppDatabase {
     );
     if (maps.isNotEmpty) {
       return Post(
-        maps[0][_idField],
-        maps[0][_titleField],
-        maps[0][_bodyField],
+        maps[0][_idField] as int,
+        maps[0][_titleField] as String,
+        maps[0][_bodyField] as String,
       );
     }
-    return Post(-1, "", "");
+    return Post(-1, '', '');
   }
 
   Future<void> clearPosts() async {

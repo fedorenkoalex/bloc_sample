@@ -8,11 +8,11 @@ import 'package:test_bloc/data/repository/posts_repository.dart';
 import 'package:test_bloc/main.dart';
 
 class PostsListBloc extends Bloc<PostsListBlocEvent, PostsListBlocState> {
-  final PostsRepository _repository = GetIt.instance<PostsRepository>();
-
   PostsListBloc() : super(PostsListBlocState.empty()) {
     add(PostsListBlocEvent.getPosts());
   }
+
+  final PostsRepository _repository = GetIt.instance<PostsRepository>();
 
   @override
   Stream<PostsListBlocState> mapEventToState(PostsListBlocEvent event) async* {
@@ -30,7 +30,5 @@ class PostsListBloc extends Bloc<PostsListBlocEvent, PostsListBlocState> {
   @override
   Future<void> close() {
     return super.close();
-
   }
-
 }
